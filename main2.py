@@ -17,6 +17,7 @@ debug = 0
 # =========================================================
 def initialize():
     # Get and display the device's *IDN? string.
+    print('test')
     idn_string = do_query_string("*IDN?")
     print("Identification string: '%s'" % idn_string)
     # Clear status and load the default setup.
@@ -291,7 +292,7 @@ def check_instrument_errors(command):
 
 rm = pyvisa.ResourceManager()
 rm.list_resources()
-InfiniiVision = rm.open_resource("TCPIP0::a-mx3104a-90028.cos.is.keysight.com::inst0::INSTR")
+InfiniiVision = rm.open_resource('USB0::2391::6040::MY56270545::INSTR')
 
 InfiniiVision.timeout = 15000
 InfiniiVision.clear()
