@@ -54,9 +54,9 @@ def capture():
     sSetup = do_query_ieee_block(":SYSTem:SETup?")
 
     f = open("setup.stp", "wb")
-    f.write(sSetup)
+    f.write(bytes(sSetup))
     f.close()
-    print("Setup bytes saved: %d" % len(sSetup))
+    print("Setup bytes saved: %d" % len(bytes(sSetup)))
 
     # Change oscilloscope settings with individual commands:
 
@@ -85,11 +85,11 @@ def capture():
 
     # Or, set up oscilloscope by loading a previously saved setup.
     sSetup = ""
-    f = open("setup.stp", "rb")
-    sSetup = f.read()
-    f.close()
-    do_command_ieee_block(":SYSTem:SETup", sSetup)
-    print("Setup bytes restored: %d" % len(sSetup))
+    # f = open("setup.stp", "rb")
+    # sSetup = f.read()
+    # f.close()
+    # do_command_ieee_block(":SYSTem:SETup", sSetup)
+    # print("Setup bytes restored: %d" % len(sSetup))
 
     # Capture an acquisition using :DIGitize.
     do_command(":DIGitize CHANnel1")
@@ -121,7 +121,7 @@ def analyze():
 
     # Save display data values to file.
     f = open("screen_image.png", "wb")
-    f.write(sDisplay)
+    f.write(bytes(sDisplay))
     f.close()
     print("Screen image written to screen_image.png.")
 
@@ -263,7 +263,7 @@ def do_query_ieee_block(query):
         print("Qys = '%s'" % query)
     result = InfiniiVision.query_binary_values("%s" % query, datatype='s')
     check_instrument_errors(query)
-    return result[0]
+    return bytes(result)
 
 
 # =========================================================
